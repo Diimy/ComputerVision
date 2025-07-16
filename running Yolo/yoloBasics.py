@@ -1,12 +1,16 @@
-import torch
-from torch.serialization import add_safe_globals
-from ultralytics.nn.tasks import DetectionModel
-
-add_safe_globals([DetectionModel])  # autoriza carregar o modelo
-
 from ultralytics import YOLO
 import cv2
 
-model = YOLO("yolov8l.pt")  # Load a pretrained YOLOv8 model
-results = model("images/car01.jpg", show=True)
+print("Running YOLOv8 object detection...\n")
+
+# Carrega o modelo YOLOv8 e realiza a inferência na imagem
+model = YOLO("yolov8n.pt")  
+results= model("./running Yolo/images/car04.jpg", show=True) 
+
+# Acessa a imagem com as anotações
+annotated_frame = results[0].plot()
+
+# Exibe com OpenCV manualmente
+cv2.imshow("Detections", annotated_frame)
 cv2.waitKey(0)
+cv2.destroyAllWindows()
